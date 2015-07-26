@@ -1,0 +1,19 @@
+{
+  "name": "dapt",
+  "version": "1.0.0",
+  "description": "An interface for building adapters",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/invrs/dapt.git"
+  },
+  "author": "Winton Welsh <winton@cyclo.ps>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/invrs/dapt/issues"
+  },
+  "homepage": "https://github.com/invrs/dapt"
+}

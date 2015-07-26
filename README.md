@@ -2,7 +2,7 @@
 
 An interface for building adapters.
 
-# What does that mean?
+## What does that mean?
 
 Adapters allow your users to configure and execute a custom workflow.
 
