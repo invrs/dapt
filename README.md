@@ -4,7 +4,7 @@ An interface for building adapters.
 
 ## What is an adapter?
 
-Adapters allow your users to configure and execute a custom workflow.
+Adapters allow your users to configure and execute a custom middleware chain.
 
 For example, [paradiso](https://github.com/invrs/paradiso) uses adapters for asset builds:
 
@@ -21,22 +21,18 @@ build browserify, coffeeify
 
 ### Configuring adapters
 
-Adapters can take the following as parameters:
+If you only pass options to an adapter, it **does not** run the middleware chain.
 
-* an object (configuration)
-* another adapter
-
-### Run the workflow
-
-If you only pass options to an adapter, it **does not** run the workflow.
-
-The options you pass are saved for a later workflow run:
+However, it does save the options for a later execution:
 
 ```coffee
 build option: true
+build()  # @options.option is still true
 ```
 
-However, pretty much everything else does run the workflow:
+### Run the workflow
+
+If you pass an adapter or nothing at all, the middleware chain **does** run:
 
 ```coffee
 build()
@@ -66,7 +62,7 @@ module.exports = dapt class
     @index     # index of this adapter in `@adapters`
   }) ->
 
-  call: ({ env, next }) -> next env
+  run: ({ env, next }) -> next env
 ```
 
 ## Order of operation
