@@ -19,7 +19,10 @@ browserify paths:
 build browserify, coffeeify
 ```
 
-Pass a config object or another adapter as parameters to an adapter.
+Adapters can take the following as parameters:
+
+* an object (`@options`)
+* another adapter
 
 ## Install
 
