@@ -23,6 +23,10 @@ build browserify, coffeeify
 
 If you only pass options to an adapter, it **does not** run the middleware chain.
 
+```coffee
+build option: true
+```
+
 However, it does save the options for a later execution:
 
 ```coffee
