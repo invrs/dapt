@@ -1,10 +1,14 @@
 {
   "name": "dapt",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An interface for building adapters",
-  "main": "index.js",
+  "main": "lib/dapt.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "pretest": "npm run compile",
+    "prepublish": "npm run compile",
+    "compile": "coffee --compile --output lib/ src/",
+    "start": "coffee -w --compile --output lib/ src/",
+    "test": "jasmine"
   },
   "repository": {
     "type": "git",
@@ -15,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/invrs/dapt/issues"
   },
-  "homepage": "https://github.com/invrs/dapt"
+  "homepage": "https://github.com/invrs/dapt",
+  "devDependencies": {
+    "coffee-script": ""
+  }
 }

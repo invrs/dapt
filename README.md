@@ -2,7 +2,7 @@
 
 An interface for building adapters.
 
-## What does that mean?
+## What is an adapter?
 
 Adapters allow your users to configure and execute a custom workflow.
 
@@ -19,10 +19,30 @@ browserify paths:
 build browserify, coffeeify
 ```
 
+### Configuring adapters
+
 Adapters can take the following as parameters:
 
-* an object (`@options`)
+* an object (configuration)
 * another adapter
+
+### Run the workflow
+
+If you only pass options to an adapter, it **does not** run the workflow.
+
+The options you pass are saved for a later workflow run:
+
+```coffee
+build option: true
+```
+
+However, pretty much everything else does run the workflow:
+
+```coffee
+build()
+build browserify, coffeeify
+build browserify, coffeeify, option: true
+```
 
 ## Install
 
@@ -44,10 +64,9 @@ module.exports = dapt class
     @adapters  # array of adapters in order of execution
     @options   # any options passed as a parameter (merged)
     @index     # index of this adapter in `@adapters`
-    @next      # function to call the next adapter
   }) ->
 
-  call: ({ env, next }) -> @next env
+  call: ({ env, next }) -> next env
 ```
 
 ## Order of operation
@@ -58,22 +77,22 @@ dapt = require "dapt"
 a = dapt class
   constructor: ({ @options }) ->
 
-  call: ({ env, next }) ->
+  run: ({ env, next }) ->
     console.log "a @options", @options
   	env.a = true
-  	@next env
+  	next env
 
 b = dapt class
-  call: ({ env, next }) ->
+  run: ({ env, next }) ->
   	console.log "b"
   	env.b = true
-  	@next env
+  	next env
 
 c = dapt class
-  call: ({ env, next }) ->
+  run: ({ env, next }) ->
   	env.c = true
   	console.log "c env", env
-  	@next env
+  	next env
 
 a b, c, d: true
 
