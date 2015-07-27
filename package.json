@@ -1,7 +1,7 @@
 {
   "name": "mezzo",
   "version": "1.0.2",
-  "description": "An interface for building adapters",
+  "description": "Abstract anything into middleware",
   "main": "lib/mezzo.js",
   "scripts": {
     "pretest": "npm run compile",
