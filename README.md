@@ -4,9 +4,21 @@ An interface for building adapters.
 
 ## What is an adapter?
 
-Adapters allow your users to configure and execute a custom middleware chain.
+Adapters allow your users to build a custom configuration/middleware chain for...anything!
 
-For example, [paradiso](https://github.com/invrs/paradiso) uses adapters for asset builds:
+For example, this is how users of [paradiso](https://github.com/invrs/paradiso) configure the web server:
+
+```coffee
+routes  = require "./routes"
+server  = require "paradiso-server"
+express = require "paradiso-server-express"
+
+server routes, express,
+  port:   9000
+  static: "public"
+```
+
+Or configure client asset builds:
 
 ```coffee
 build      = require "paradiso-build"
@@ -18,6 +30,13 @@ browserify paths:
 
 build browserify, coffeeify
 ```
+
+### Goals
+
+* Abstract library-specific code into smaller testable libraries.
+* Maintain a similar interface for libraries that do the same thing.
+* Don't change your app code, change the adapter.
+* Piece together different adapters easily.
 
 ### Configuring adapters
 
@@ -44,12 +63,6 @@ build browserify, coffeeify
 build browserify, coffeeify, option: true
 ```
 
-## Install
-
-```bash
-npm install dapt
-```
-
 ## Write an adapter
 
 Adapters are similar to middleware in web applications.
@@ -74,31 +87,39 @@ module.exports = dapt class
 ```coffee
 dapt = require "dapt"
 
+# Build adapters
+#
 a = dapt class
   constructor: ({ @options }) ->
 
   run: ({ env, next }) ->
     console.log "a @options", @options
-  	env.a = true
+  	env.a_run = true
   	next env
 
 b = dapt class
   run: ({ env, next }) ->
   	console.log "b"
-  	env.b = true
+  	env.b_run = true
   	next env
 
 c = dapt class
   run: ({ env, next }) ->
-  	env.c = true
+  	env.c_run = true
   	console.log "c env", env
   	next env
 
-a b, c, d: true
+# Set options
+#
+a opt: true
+
+# Execute middleware chain
+#
+a b, c, opt2: true
 
 # Output:
 #
-#   a @options { d: true }
+#   a @options { opt: true, opt2: true }
 #   b
-#   c env { a: true, b: true, c: true }
+#   c env { a_run: true, b_run: true, c_run: true }
 ```

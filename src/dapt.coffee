@@ -4,19 +4,19 @@ class Dapt
   args: (args) ->
     @env  ||= {}
     @opts ||= {}
-    @dapts  = [ @ ]
+    dapts   = [ @ ]
 
     args.forEach (arg) =>
       if arg typeof "object"
         opts[k] = v for k, v of arg
       else if arg typeof "function" && arg.dapt
-        @dapts.push arg.dapt
+        dapts.push arg.dapt
 
-    klasses = @dapts.map (dapt, i) =>
+    klasses = dapts.map (dapt, i) =>
       if dapt.Klass
-        new Klass adapters: @dapts, index: i, options: @opts
+        new Klass adapters: dapts, index: i, options: @opts
 
-    next  = ->
+    next = ->
     klasses.reverse().forEach (klass) =>
       next = (env) -> klass.run env: @env, next: next
 
