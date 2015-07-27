@@ -12,17 +12,19 @@ class Dapt
       else if typeof arg == "function" && arg.dapt
         dapts.push arg.dapt
 
+    return if dapts.length == 1
+
     klasses = dapts.map (dapt, i) =>
       if dapt.Klass
         new dapt.Klass adapters: dapts, index: i, options: @opts
 
     klass = klasses[0]
 
-    next = ->
-    klasses.reverse().forEach (klass) =>
-      next = (env) -> klass.run env: @env, next: next
+    next = klasses.reverse().reduce (memo, klass) =>
+      (env) => klass.run env: @env, next: memo
+    , ->
 
-    klass.run env: @env, next: next
+    next()
 
 module.exports = (->
   (Klass) ->
@@ -30,7 +32,7 @@ module.exports = (->
 
     fn = (args...) ->
       dapt.args args
-      @
+      fn
     
     fn.dapt = dapt
     fn

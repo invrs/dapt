@@ -25,5 +25,5 @@ describe "Dapt", ->
 
   describe "thing", ->
     it "does", ->
-      @a opt: true
-      @a @b, @c, opt2: true
+      console.log @a opt: true
+      console.log @a @b, @c, opt2: true
