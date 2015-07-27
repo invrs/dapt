@@ -1,8 +1,8 @@
 {
-  "name": "dapt",
+  "name": "mezzo",
   "version": "1.0.2",
   "description": "An interface for building adapters",
-  "main": "lib/dapt.js",
+  "main": "lib/mezzo.js",
   "scripts": {
     "pretest": "npm run compile",
     "prepublish": "npm run compile",
@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/invrs/dapt.git"
+    "url": "https://github.com/invrs/mezzo.git"
   },
   "author": "Winton Welsh <winton@cyclo.ps>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/invrs/dapt/issues"
+    "url": "https://github.com/invrs/mezzo/issues"
   },
-  "homepage": "https://github.com/invrs/dapt",
+  "homepage": "https://github.com/invrs/mezzo",
   "devDependencies": {
     "coffee-script": "",
     "jasmine": ""

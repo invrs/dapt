@@ -1,22 +1,22 @@
-class Dapt
+class Mezzo
   constructor: (@Klass) ->
 
   args: (args) ->
     @env  ||= {}
     @opts ||= {}
-    dapts   = [ @ ]
+    mezzos   = [ @ ]
 
     args.forEach (arg) =>
       if typeof arg == "object"
         @opts[k] = v for k, v of arg
-      else if typeof arg == "function" && arg.dapt
-        dapts.push arg.dapt
+      else if typeof arg == "function" && arg.mezzo
+        mezzos.push arg.mezzo
 
-    return if dapts.length == 1
+    return if mezzos.length == 1
 
-    klasses = dapts.map (dapt, i) =>
-      if dapt.Klass
-        new dapt.Klass adapters: dapts, index: i, options: @opts
+    klasses = mezzos.map (mezzo, i) =>
+      if mezzo.Klass
+        new mezzo.Klass adapters: mezzos, index: i, options: @opts
 
     klass = klasses[0]
 
@@ -28,12 +28,12 @@ class Dapt
 
 module.exports = (->
   (Klass) ->
-    dapt = new Dapt Klass
+    mezzo = new Mezzo Klass
 
     fn = (args...) ->
-      dapt.args args
+      mezzo.args args
       fn
     
-    fn.dapt = dapt
+    fn.mezzo = mezzo
     fn
 )()

@@ -1,9 +1,9 @@
-dapt = require "../../src/dapt"
+mezzo = require "../../src/mezzo"
 
-describe "Dapt", ->
+describe "Mezzo", ->
 
   beforeEach ->
-    @a = dapt class
+    @a = mezzo class
       constructor: ({ @options }) ->
 
       run: ({ env, next }) ->
@@ -11,13 +11,13 @@ describe "Dapt", ->
         env.a_run = true
         next env
 
-    @b = dapt class
+    @b = mezzo class
       run: ({ env, next }) ->
         console.log "b"
         env.b_run = true
         next env
 
-    @c = dapt class
+    @c = mezzo class
       run: ({ env, next }) ->
         env.c_run = true
         console.log "c env", env
