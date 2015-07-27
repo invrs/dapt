@@ -1,44 +1,43 @@
 # Mezzo
 
-An interface for building adapters.
+Abstract anything into middleware.
 
-## What is an adapter?
+## The future
 
-Adapters allow your users to build a custom configuration/middleware chain for...anything!
+What if you could use middleware for things other than an HTTP request?
 
-For example, this is how users of [paradiso](https://github.com/invrs/paradiso) configure the web server:
+Things like:
+
+* configuring a web server
+* building your client assets
+* extending component functionality
+* DRYing up shared project functionality
+
+### Example
+
+(From the [paradiso](https://github.com/invrs/paradiso) framework):
 
 ```coffee
+# Start the web server
+#
 routes  = require "./routes"
 server  = require "paradiso-server"
 express = require "paradiso-server-express"
 
-server routes, express,
+express
   port:   9000
   static: "public"
-```
 
-Or configure client asset builds:
-
-```coffee
-build      = require "paradiso-build"
-browserify = require "paradiso-build-browserify"
-coffeeify  = require "paradiso-build-coffeeify"
-
-browserify paths:
-  "app/initializers/client": "public/client"
-
-build browserify, coffeeify
+server routes, 
 ```
 
 ### Goals
 
-* Abstract library-specific code into smaller testable libraries.
-* Maintain a similar interface for libraries that do the same thing.
-* Don't change your app code, change the adapter.
-* Piece together different adapters easily.
+* Abstract library-specific code into small, reusable, and testable middleware.
+* Maintain a similar interface for libraries that do the same thing. (Switch libraries without changing app code.)
+* Piece together and configure middleware easily.
 
-### Configuring adapters
+### Configuring middleware
 
 If you only pass options to an adapter, it **does not** run the middleware chain.
 
@@ -63,11 +62,9 @@ build browserify, coffeeify
 build browserify, coffeeify, option: true
 ```
 
-## Write an adapter
+## Write middleware
 
-Adapters are similar to middleware in web applications.
-
-Basic structure for writing an adapter:
+Skeleton implementation of a mezzo middleware:
 
 ```coffee
 mezzo = require "mezzo"
