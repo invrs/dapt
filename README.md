@@ -15,7 +15,7 @@ Things like:
 
 ### Example
 
-(From the [paradiso](https://github.com/invrs/paradiso) framework):
+From the **[paradiso](https://github.com/invrs/paradiso)** web framework:
 
 ```coffee
 # Start the web server
@@ -34,7 +34,8 @@ server routes,
 ### Goals
 
 * Abstract library-specific code into small, reusable, and testable middleware.
-* Maintain a similar interface for libraries that do the same thing. (Switch libraries without changing app code.)
+* Maintain a similar interface for libraries that do the same thing.
+* (Change out libraries without changing app code.)
 * Piece together and configure middleware easily.
 
 ### Configuring middleware
