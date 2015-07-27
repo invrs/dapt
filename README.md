@@ -82,7 +82,7 @@ module.exports = dapt class
   run: ({ env, next }) -> next env
 ```
 
-## Order of operation
+### Put it all together
 
 ```coffee
 dapt = require "dapt"
