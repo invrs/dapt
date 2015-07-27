@@ -1,4 +1,4 @@
-# Dapt
+# Mezzo
 
 An interface for building adapters.
 
@@ -70,9 +70,9 @@ Adapters are similar to middleware in web applications.
 Basic structure for writing an adapter:
 
 ```coffee
-dapt = require "dapt"
+mezzo = require "mezzo"
 
-module.exports = dapt class
+module.exports = mezzo class
   constructor: ({
     @adapters  # array of adapters in order of execution
     @options   # any options passed as a parameter (merged)
@@ -85,11 +85,11 @@ module.exports = dapt class
 ### Put it all together
 
 ```coffee
-dapt = require "dapt"
+mezzo = require "mezzo"
 
 # Build adapters
 #
-a = dapt class
+a = mezzo class
   constructor: ({ @options }) ->
 
   run: ({ env, next }) ->
@@ -97,13 +97,13 @@ a = dapt class
   	env.a_run = true
   	next env
 
-b = dapt class
+b = mezzo class
   run: ({ env, next }) ->
   	console.log "b"
   	env.b_run = true
   	next env
 
-c = dapt class
+c = mezzo class
   run: ({ env, next }) ->
   	env.c_run = true
   	console.log "c env", env
