@@ -7,14 +7,16 @@ class Dapt
     dapts   = [ @ ]
 
     args.forEach (arg) =>
-      if arg typeof "object"
-        opts[k] = v for k, v of arg
-      else if arg typeof "function" && arg.dapt
+      if typeof arg == "object"
+        @opts[k] = v for k, v of arg
+      else if typeof arg == "function" && arg.dapt
         dapts.push arg.dapt
 
     klasses = dapts.map (dapt, i) =>
       if dapt.Klass
-        new Klass adapters: dapts, index: i, options: @opts
+        new dapt.Klass adapters: dapts, index: i, options: @opts
+
+    klass = klasses[0]
 
     next = ->
     klasses.reverse().forEach (klass) =>
@@ -23,13 +25,13 @@ class Dapt
     klass.run env: @env, next: next
 
 module.exports = (->
-  dapt = new Dapt Klass
+  (Klass) ->
+    dapt = new Dapt Klass
 
-  fn = (args...) ->
-    dapt.args args
-    @
-  
-  fn.dapt = dapt
-
-  (Klass) -> fn
+    fn = (args...) ->
+      dapt.args args
+      @
+    
+    fn.dapt = dapt
+    fn
 )()

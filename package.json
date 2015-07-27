@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/invrs/dapt",
   "devDependencies": {
-    "coffee-script": ""
+    "coffee-script": "",
+    "jasmine": ""
   }
 }
