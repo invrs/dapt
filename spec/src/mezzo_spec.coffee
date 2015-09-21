@@ -68,5 +68,4 @@ describe "Mezzo", ->
         run: ({ env, next }) ->
           done()
 
-
       a b, opts
