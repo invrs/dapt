@@ -1,4 +1,4 @@
-mezzo = require "../../src/mezzo"
+mezzo = require "../../lib/mezzo"
 
 describe "Mezzo", ->
 
