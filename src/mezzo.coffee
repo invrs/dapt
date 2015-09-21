@@ -4,7 +4,7 @@ class Mezzo
   args: (args) ->
     @env  ||= {}
     @opts ||= {}
-    mezzos   = [ @ ]
+    mezzos  = [ @ ]
 
     args.forEach (arg) =>
       if typeof arg == "object"
@@ -21,7 +21,7 @@ class Mezzo
     klass = klasses[0]
 
     next = klasses.reverse().reduce (memo, klass) =>
-      (env) => klass.run env: @env, next: memo
+      (env) => klass.run env: env || @env, next: memo
     , ->
 
     next()

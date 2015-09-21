@@ -24,11 +24,9 @@ routes  = require "./routes"
 server  = require "paradiso-server"
 express = require "paradiso-server-express"
 
-express
+server routes, express
   port:   9000
   static: "public"
-
-server routes, 
 ```
 
 ### Goals

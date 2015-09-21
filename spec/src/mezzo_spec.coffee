@@ -2,28 +2,71 @@ mezzo = require "../../src/mezzo"
 
 describe "Mezzo", ->
 
-  beforeEach ->
-    @a = mezzo class
-      constructor: ({ @options }) ->
+  describe "next", ->
+    it "calls the middleware in order", (done) ->
+      a = mezzo class
+        run: ({ env, next }) ->
+          next()
 
-      run: ({ env, next }) ->
-        console.log "a @options", @options
-        env.a_run = true
-        next env
+      b = mezzo class
+        run: ({ env, next }) ->
+          done()
 
-    @b = mezzo class
-      run: ({ env, next }) ->
-        console.log "b"
-        env.b_run = true
-        next env
+      a b, option: true
 
-    @c = mezzo class
-      run: ({ env, next }) ->
-        env.c_run = true
-        console.log "c env", env
-        next env
+    it "passes env variables to run", (done) ->
+      a = mezzo class
+        run: ({ env, next }) ->
+          env.a = true
+          next()
 
-  describe "thing", ->
-    it "does", ->
-      console.log @a opt: true
-      console.log @a @b, @c, opt2: true
+      b = mezzo class
+        run: ({ env, next }) ->
+          expect(env).toEqual a: true
+          done()
+
+      a b, option: true
+
+    it "accepts env variable as parameter to next", (done) ->
+      opts = a: true
+
+      a = mezzo class
+        run: ({ env, next }) ->
+          next opts
+
+      b = mezzo class
+        run: ({ env, next }) ->
+          expect(env).toEqual opts
+          done()
+
+      a b, option: true
+
+
+  describe "options", ->
+    it "passes options to constructors", (done) ->
+      opts = a: true
+
+      a = mezzo class
+        constructor: ({ adapters, index, options }) ->
+          expect(adapters[0]).toBe a.mezzo
+          expect(adapters[1]).toBe b.mezzo
+          expect(adapters.length).toBe 2
+          expect(index).toBe 0
+          expect(options).toEqual opts
+
+        run: ({ env, next }) ->
+          next()
+
+      b = mezzo class
+        constructor: ({ adapters, index, options }) ->
+          expect(adapters[0]).toBe a.mezzo
+          expect(adapters[1]).toBe b.mezzo
+          expect(adapters.length).toBe 2
+          expect(index).toBe 1
+          expect(options).toEqual opts
+
+        run: ({ env, next }) ->
+          done()
+
+
+      a b, opts
