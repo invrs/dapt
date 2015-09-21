@@ -91,19 +91,18 @@ a = mezzo class
   run: ({ env, next }) ->
     console.log "a @options", @options
   	env.a_run = true
-  	next env
+  	next()
 
 b = mezzo class
   run: ({ env, next }) ->
   	console.log "b"
-  	env.b_run = true
-  	next env
+  	next b_run: true
 
 c = mezzo class
   run: ({ env, next }) ->
   	env.c_run = true
   	console.log "c env", env
-  	next env
+  	next()
 
 # Set options
 #
