@@ -1,5 +1,7 @@
 # Mezzo
 
+[![Build Status](https://travis-ci.org/invrs/mezzo.svg?branch=master)](https://travis-ci.org/invrs/mezzo)
+
 Abstract anything into middleware.
 
 ## The future
